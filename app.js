@@ -11,7 +11,7 @@ var port = process.env.PORT || 8000;
 // ---------------------------------------------------------------------
 // Routes please use corect api commands.
 // ---------------------------------------------------------------------
-gameServer.get('/', (input, output) => { output.send("please use corect api commands."); } );
+gameServer.get('/', (input, output) => { output.send("please use correct api commands."); } );
 // ---------------------------------------------------------------------
 // Run API server
 // ---------------------------------------------------------------------
