@@ -7,13 +7,20 @@
 const exp = require('express');
 const gameServer = exp();
 // ---------------------------------------------------------------------
+var port = process.env.PORT || 8000;
+// ---------------------------------------------------------------------
 // Routes please use corect api commands.
 // ---------------------------------------------------------------------
-gameServer.get('/', (input, output) => { output.send("Labas Heroku :P"); } );
+gameServer.get('/', (input, output) => { output.send("please use corect api commands."); } );
 // ---------------------------------------------------------------------
 // Run API server
 // ---------------------------------------------------------------------
-var port = process.env.PORT || 8000;
+
+
+
+
+
+
 gameServer.listen(port);
 // ---------------------------------------------------------------------
 // End of file.
