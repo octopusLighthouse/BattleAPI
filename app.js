@@ -34,7 +34,7 @@ app.get('/', function(inp, out, nxt){ out.send("Please use correct API. v2.00000
 
 app.get('/battles', function(inp, out, nxt)
 		{
-			Battles.find({},
+			Battles.find({battle_number: "1"},
 			function(err, list)
 			{
 				if (err) return nxt(err);		
