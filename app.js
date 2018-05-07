@@ -17,15 +17,15 @@ kitty.save().then(() => console.log('meow'));
 var express = require('express');
 var Async = require('async');
 var mongoose = require('./libs/mongoose');
-var FishersObj = require('./modules/user').FISHERS;
+var Battles = require('./models/battles').battles;
 
 var app = express();
 var port = process.env.PORT || 8000;
 app.get('/', function(inp, out, nxt){ out.send("Please use correct API."); });
 
-app.get('/fish', function(inp, out, nxt)
+app.get('/battles', function(inp, out, nxt)
 		{
-			FishersObj.find({},
+			Battles.find({},
 			function(err, list)
 			{
 				if (err) return nxt(err);		
