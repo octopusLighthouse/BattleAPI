@@ -3,6 +3,15 @@
 // Author: Jonas Jonaitis
 // Create date: 2019.07.07
 // Modify date: 2020.05.07
+//
+/*
+
+C:\node\Heroku>heroku create
+Creating app... done, ⬢ enigmatic-chamber-75142
+https://enigmatic-chamber-75142.herokuapp.com/ | https://git.heroku.com/enigmatic-chamber-75142.git
+
+C:\node\Heroku>
+*/
 // --------------------------------------------------------------
 
 /*
@@ -21,7 +30,7 @@ var Battles = require('./models/battles').battles;
 
 var app = express();
 var port = process.env.PORT || 8000;
-app.get('/', function(inp, out, nxt){ out.send("Please use correct API. v2"); });
+app.get('/', function(inp, out, nxt){ out.send("Please use correct API. v2.000001"); });
 
 app.get('/battles', function(inp, out, nxt)
 		{
