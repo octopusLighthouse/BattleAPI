@@ -30,7 +30,7 @@ var Battles = require('./models/battles').battles;
 
 var app = express();
 var port = process.env.PORT || 8000;
-app.get('/', function(inp, out, nxt){ out.send("Please use correct API. v2.000001"); });
+app.get('/', function(inp, out, nxt){ out.send("Please use correct API. v2.000002"); });
 
 app.get('/battles', function(inp, out, nxt)
 		{
