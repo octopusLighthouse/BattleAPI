@@ -7,11 +7,12 @@
 var express = require('express');
 var mongoose = require('../libs/mongoose');
 var Battles = require('../models/battles').battles;
+var config = require('../config/index.js');
 // --------------------------------------------------------------------------------------------
 // Error route
 // --------------------------------------------------------------------------------------------
 function error(inp, out){
-	out.send("Please use correct API v1.0.0");
+	out.send(`Please use correct API v${config.get('apiVersion')}`);
 }
 // --------------------------------------------------------------------------------------------
 // battles list function
@@ -243,7 +244,7 @@ function status(inp, out)
 	.then(status => requestForDefenderSizeMin(status))
 	.then(status => requestForDefenderSizeMax(status))
 	.then(st => out.send(st))
-	.catch(error => out.send(error) );
+	.catch(error => out.send(error));
 
 }
 // --------------------------------------------------------------------------------------------
