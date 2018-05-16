@@ -1,5 +1,8 @@
 // --------------------------------------------------------------------------------------------
-// 
+// Description: Routes
+// Author: Robertas Bauras
+// Create date: 2018.05.02
+// Modify date: 2018.05.16
 // --------------------------------------------------------------------------------------------
 var express = require('express');
 var mongoose = require('../libs/mongoose');
@@ -14,12 +17,7 @@ function error(inp, out){
 // battles list function
 // --------------------------------------------------------------------------------------------
 function list(inp, out){
-	let query = Battles.aggregate([				
-		{
-			$group: {_id:0, battlePlaces: {$addToSet: '$location'}}
-		}
-	]);
-
+	let query = Battles.aggregate([{$group: {_id:0, battlePlaces: {$addToSet: '$location'}}}]);
 	query.exec(function(err, ls){ 
 		out.send(ls[0].battlePlaces); 
 	});
@@ -95,14 +93,14 @@ function requestForMostActiveRegion(statArray){
 	let promise = new Promise(function(resolve, reject){
 		let pipe = [];
 
-		let groupedKings =  { $group: { _id:"$region", mostActiveRegion: {$sum: 1} } };
-		pipe.push(groupedKings);
+		let mActiveRegio =  { $group: { _id:"$region", mostActiveRegion: {$sum: 1} } };
+		pipe.push(mActiveRegio);
 
-		let sortKings = {$sort: { 'mostActiveRegion': -1}}
-		pipe.push(sortKings);
+		let sortRegio = {$sort: { 'mostActiveRegion': -1}}
+		pipe.push(sortRegio);
 
-		let limitKings = {$limit: 1}
-		pipe.push(limitKings);
+		let limitRegio = {$limit: 1}
+		pipe.push(limitRegio);
 
 		let query = Battles.aggregate(pipe);
 		query.exec(function(err, ls){ 
@@ -119,8 +117,8 @@ function requestForMostActiveRegion(statArray){
 function requestForAtackerOutcomeWin(statArray){
 	let promise = new Promise(function(resolve, reject){
 		let pipe = [];
-		let atou =  { $match: { attacker_outcome: "win" } };
-		pipe.push(atou);
+		let attackerOutcomeWin =  { $match: { attacker_outcome: "win" } };
+		pipe.push(attackerOutcomeWin);
 		let x =  { $group: { _id:"$attacker_outcome", total: {$sum: 1} } };
 		pipe.push(x);
 
@@ -140,12 +138,10 @@ function requestForAtackerOutcomeWin(statArray){
 function requestForAtackerOutcomeLoss(statArray){
 	let promise = new Promise(function(resolve, reject){
 		let pipe = [];
-		let atou =  { $match: { attacker_outcome: "loss" } };
-		pipe.push(atou);
+		let attackerOutcomeLoss =  { $match: { attacker_outcome: "loss" } };
+		pipe.push(attackerOutcomeLoss);
 		let x =  { $group: { _id:"$attacker_outcome", total: {$sum: 1} } };
 		pipe.push(x);
-
-
 		let query = Battles.aggregate(pipe);
 		query.exec(function(err, ls){ 
 				if (err) reject(err);
@@ -161,19 +157,14 @@ function requestForAtackerOutcomeLoss(statArray){
 function requestForBattleTypes(statArray){
 	let promise = new Promise(function(resolve, reject){
 		let pipe = [];
-
-		let x =  { $group: { _id:"$battle_type"}};
-		pipe.push(x);
-
-
+		let battleTypes =  { $group: { _id:"$battle_type"}};
+		pipe.push(battleTypes);
 		let query = Battles.aggregate(pipe);
 		query.exec(function(err, ls){ 
 				if (err) reject(err);
-
 				for (var val in ls) {
 					statArray.battle_type.push(ls[val]._id);
 				}
-
 				resolve(statArray);
 			});
 	});
@@ -185,11 +176,8 @@ function requestForBattleTypes(statArray){
 function requestForDefenderSizeAvg(statArray){
 	let promise = new Promise(function(resolve, reject){
 		let pipe = [];
-
-		let x =  { $group: { _id: 0, avg: {$avg: "$defender_size"}}};
-		pipe.push(x);
-
-
+		let avgDefenderSize =  { $group: { _id: 0, avg: {$avg: "$defender_size"}}};
+		pipe.push(avgDefenderSize);
 		let query = Battles.aggregate(pipe);
 		query.exec(function(err, ls){ 
 				if (err) reject(err);
@@ -205,11 +193,8 @@ function requestForDefenderSizeAvg(statArray){
 function requestForDefenderSizeMin(statArray){
 	let promise = new Promise(function(resolve, reject){
 		let pipe = [];
-
-		let x =  { $group: { _id: 0, min: {$min: "$defender_size"}}};
-		pipe.push(x);
-
-
+		let minDefenderSize =  { $group: { _id: 0, min: {$min: "$defender_size"}}};
+		pipe.push(minDefenderSize);
 		let query = Battles.aggregate(pipe);
 		query.exec(function(err, ls){ 
 				if (err) reject(err);
@@ -225,11 +210,8 @@ function requestForDefenderSizeMin(statArray){
 function requestForDefenderSizeMax(statArray){
 	let promise = new Promise(function(resolve, reject){
 		let pipe = [];
-
-		let x =  { $group: { _id: 0, max: {$max: "$defender_size"}}};
-		pipe.push(x);
-
-
+		let maxDefenderSize =  { $group: { _id: 0, max: {$max: "$defender_size"}}};
+		pipe.push(maxDefenderSize);
 		let query = Battles.aggregate(pipe);
 		query.exec(function(err, ls){ 
 				if (err) reject(err);
@@ -240,7 +222,7 @@ function requestForDefenderSizeMax(statArray){
 	return promise;
 }
 // --------------------------------------------------------------------------------------------
-// Main stat request function
+// Main stat request function uses promises
 // --------------------------------------------------------------------------------------------
 function status(inp, out)
 {
@@ -267,6 +249,7 @@ function status(inp, out)
 // --------------------------------------------------------------------------------------------
 // AtackerKing and DefenderKing search function for search request 
 // available parameters king location and type
+// if no parameters set result will be all kings at any location and battletype
 // --------------------------------------------------------------------------------------------
 function search(inp, out){
 
