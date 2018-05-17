@@ -45,6 +45,7 @@ app.get('/search', Search.search);
 // --------------------------------------------------------------------------------------------
 app.get('/...', routes.all);
 app.get('/test', routes.test);
+app.get('/midware', routes.mid1, routes.mid2, routes.mid3);
 app.use(routes.error);
 // --------------------------------------------------------------------------------------------
 // hook up server on port

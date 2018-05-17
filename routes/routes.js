@@ -59,12 +59,19 @@ function test(i,o)
 
 };
 
+function middleware1(i, o, next){ console.log('middleware nr.1'); next(); }
+function middleware2(i, o, next){ console.log('middleware nr.2'); next(); }
+function middleware3(i, o, next){ console.log('middleware nr.3'); o.send('middleware text OK');  }
+
 // --------------------------------------------------------------------------------------------
 // export
 // --------------------------------------------------------------------------------------------
 module.exports.test = test;
 module.exports.all = all;
 module.exports.error = error;
+module.exports.mid1 = middleware1;
+module.exports.mid2 = middleware2;
+module.exports.mid3 = middleware3;
 // --------------------------------------------------------------------------------------------
 // end of file
 // --------------------------------------------------------------------------------------------

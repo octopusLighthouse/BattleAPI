@@ -14,7 +14,10 @@ var config = require('../config/index.js');
 function list(inp, out){
 	let query = Battles.aggregate([{$group: {_id:0, battlePlaces: {$addToSet: '$location'}}}]);
 	query.exec(function(err, ls){ 
-		if (err) out.send(err);
+		if (err) {
+			console.log(err);
+			out.send(err)
+		};
 		out.send(ls[0].battlePlaces); 
 	});
 }
