@@ -20,6 +20,7 @@ var Status = require('./routes/status');
 var Search = require('./routes/search');
 var config = require('./config/index.js');
 var battleServerHttp = require('./middleware/log');
+var Login = require('./middleware/login');
 var favicon = require('serve-favicon');
 var path = require('path');
 var app = express();
@@ -36,16 +37,19 @@ app.use(favicon(path.join(__dirname, 'images', 'favicon.ico')));
 // --------------------------------------------------------------------------------------------
 // release routes
 // --------------------------------------------------------------------------------------------
-app.get('/list', List.list);
-app.get('/count', Count.count);
-app.get('/stats', Status.status);
-app.get('/search', Search.search);
+app.get('/list', Login.userAuthentification, List.list);
+app.get('/count', Login.userAuthentification, Count.count);
+app.get('/stats', Login.userAuthentification, Status.status);
+app.get('/search', Login.userAuthentification, Search.search);
 // --------------------------------------------------------------------------------------------
 // debug routes
 // --------------------------------------------------------------------------------------------
-app.get('/...', routes.all);
-app.get('/test', routes.test);
-app.get('/midware', routes.mid1, routes.mid2, routes.mid3);
+//app.get('/...', routes.all);
+//app.get('/test', routes.test);
+//app.get('/midware', routes.mid1, routes.mid2, routes.mid3);
+// --------------------------------------------------------------------------------------------
+// Error mid-ware
+// --------------------------------------------------------------------------------------------
 app.use(routes.error);
 // --------------------------------------------------------------------------------------------
 // hook up server on port
