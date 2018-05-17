@@ -9,6 +9,8 @@ var mongoose = require('../libs/mongoose');
 var Battles = require('../models/battles').battles;
 var config = require('../config/index.js');
 // --------------------------------------------------------------------------------------------
+// request /stats object
+// --------------------------------------------------------------------------------------------
 const statObject = {		
 	most_active: {attacker_king: ``, defender_king: ``, region: ``},
 	attacker_outcome: {win: 0, loss: 0},
@@ -16,7 +18,7 @@ const statObject = {
 	defender_size: { average: 0, min: 0, max: 0}
 };
 // --------------------------------------------------------------------------------------------
-// Main stat request function uses promises
+// Collecting all data needed for statObject
 // --------------------------------------------------------------------------------------------
 function status(inp, out)
 {
