@@ -8,6 +8,7 @@
 // …or push an existing repository from the command line
 // git remote add origin https://github.com/octopusLighthouse/home.git
 // git push -u origin master
+// octopusLighthouse
 // --------------------------------------------------------------------------------------------
 // includes
 // --------------------------------------------------------------------------------------------
