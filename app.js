@@ -10,21 +10,33 @@
 // --------------------------------------------------------------------------------------------
 var express = require('express');
 var routes = require('./routes/routes');
+var List = require('./routes/list');
+var Count = require('./routes/count');
+var Status = require('./routes/status');
+var config = require('./config/index.js');
 var app = express();
 //mongoose.set('debug', true);
 // --------------------------------------------------------------------------------------------
 // server port
 // --------------------------------------------------------------------------------------------
-app.set('port', process.env.PORT || 5000);
+app.set('port', process.env.PORT || config.get('port'));
 // --------------------------------------------------------------------------------------------
+// Middlewere
 // routes
 // --------------------------------------------------------------------------------------------
 
-app.get('/list', routes.list);
-app.get('/count', routes.count);
-app.get('/stats', routes.status);
+
+
+app.get('/list', List.list);
+app.get('/count', Count.count);
+app.get('/stats', Status.status);
 app.get('/search', routes.search);
+app.get('/...', routes.all);
+app.get('/test', routes.test);
 app.use(routes.error);
+
+
+
 app.listen(app.get('port'));
 
 // --------------------------------------------------------------------------------------------
