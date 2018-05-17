@@ -6,13 +6,13 @@
 // --------------------------------------------------------------------------------------------
 // In future releases will done :)
 // --------------------------------------------------------------------------------------------
-let status = { userLoggedIn: true};
+let status = { userLoggedIn: true };
 // --------------------------------------------------------------------------------------------
 function login(input, output, next){
 	if (status.userLoggedIn == true){
 		next();
 	}else{
-		output.send('User authentification error.');
+		output.send(`User authentification error.`);
 	}
 }
 // --------------------------------------------------------------------------------------------

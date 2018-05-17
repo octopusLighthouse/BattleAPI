@@ -20,8 +20,6 @@ function all(i,o)
 		let pipe = [];
 		let attackerOutcomeWin =  { $project: {_id:0} };
 		pipe.push(attackerOutcomeWin);
-		
-
 
 		let query = Battles.aggregate(pipe);
 		query.exec(function(err, ls){ 
