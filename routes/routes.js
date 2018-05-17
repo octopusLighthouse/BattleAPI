@@ -15,10 +15,6 @@ function error(inp, out){
 	out.send(`Please use correct API v${config.get('apiVersion')}`);
 }
 
-
-
-
-
 function all(i,o)
 {
 		let pipe = [];

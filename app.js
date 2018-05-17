@@ -20,6 +20,8 @@ var Status = require('./routes/status');
 var Search = require('./routes/search');
 var config = require('./config/index.js');
 var battleServerHttp = require('./middleware/log');
+var favicon = require('serve-favicon');
+var path = require('path');
 var app = express();
 //mongoose.set('debug', true);
 // --------------------------------------------------------------------------------------------
@@ -30,6 +32,7 @@ app.set('port', process.env.PORT || config.get('port'));
 // Middlewere
 // --------------------------------------------------------------------------------------------
 app.use(battleServerHttp.log);
+app.use(favicon(path.join(__dirname, 'images', 'favicon.ico')));
 // --------------------------------------------------------------------------------------------
 // release routes
 // --------------------------------------------------------------------------------------------
