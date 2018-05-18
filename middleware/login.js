@@ -12,7 +12,12 @@ function login(input, output, next){
 	if (status.userLoggedIn == true){
 		next();
 	}else{
-		output.send(`User authentification error.`);
+		output.send({
+			"success": false,
+			"data": {
+			"message": "Session Expired. Please Login again"
+			}
+		});
 	}
 }
 // --------------------------------------------------------------------------------------------
