@@ -15,7 +15,7 @@
 
 // includes
 var express = require('express');
-var routes = require('./routes/routes');
+var debug = require('./routes/debug');
 var List = require('./routes/list');
 var Count = require('./routes/count');
 var Status = require('./routes/status');
@@ -42,9 +42,9 @@ app.get('/stats', Login.userAuthentification, Status.status);
 app.get('/search', Login.userAuthentification, Search.search);
 
 // debug routes
-app.get('/all', routes.all);
-app.get('/test', routes.test);
-//app.get('/midware', routes.mid1, routes.mid2, routes.mid3);
+app.get('/all', debug.all);
+app.get('/test', debug.test);
+//app.get('/midware', debug.mid1, debug.mid2, debug.mid3);
 
 // Error mid-ware
 app.use(routes.error);
