@@ -4,7 +4,7 @@
 * Create date: 2018.05.02
 * Modify date: 2018.05.21
 */
-var nconf = require('nconf');
-var path = require('path');
+let nconf = require('nconf');
+let path = require('path');
 nconf.argv().env().file({ file: path.join(__dirname, 'config.json') });
 module.exports = nconf;

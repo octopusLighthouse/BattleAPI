@@ -4,10 +4,10 @@
 * Create date: 2018.05.02
 * Modify date: 2018.05.21
 */
-var express = require('express');
-var mongoose = require('../libs/mongoose');
-var Battles = require('../models/battles').battles;
-var config = require('../config/index.js');
+let express = require('express');
+let mongoose = require('../libs/mongoose');
+let Battles = require('../models/battles').battles;
+let config = require('../config/index.js');
 
 // AtackerKing and DefenderKing search function for search request 
 // available parameters king location and type

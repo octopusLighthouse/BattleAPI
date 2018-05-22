@@ -14,18 +14,18 @@
 */
 
 // includes
-var express = require('express');
-var debug = require('./routes/debug');
-var List = require('./routes/list');
-var Count = require('./routes/count');
-var Status = require('./routes/status');
-var Search = require('./routes/search');
-var config = require('./config/index.js');
-var battleServerHttp = require('./middleware/log');
-var Login = require('./middleware/login');
-var favicon = require('serve-favicon');
-var path = require('path');
-var app = express();
+let express = require('express');
+let debug = require('./routes/debug');
+let List = require('./routes/list');
+let Count = require('./routes/count');
+let Status = require('./routes/status');
+let Search = require('./routes/search');
+let config = require('./config/index.js');
+let battleServerHttp = require('./middleware/log');
+let Login = require('./middleware/login');
+let favicon = require('serve-favicon');
+let path = require('path');
+let app = express();
 //mongoose.set('debug', true);
 
 // server port

@@ -4,7 +4,7 @@
 * Create date: 2018.05.02
 * Modify date: 2018.05.21
 */
-var mongoose = require('./../libs/mongoose');
+let mongoose = require('./../libs/mongoose');
 
 exports.battles = mongoose.Schema({
 	    name: String,

@@ -4,10 +4,10 @@
 * Create date: 2018.05.02
 * Modify date: 2018.05.21
 */
-var express = require('express');
-var mongoose = require('../libs/mongoose');
-var Battles = require('../models/battles').battles;
-var config = require('../config/index.js');
+let express = require('express');
+let mongoose = require('../libs/mongoose');
+let Battles = require('../models/battles').battles;
+let config = require('../config/index.js');
 
 // Error route
 function error(inp, out){
@@ -33,8 +33,32 @@ function test(i,o)
 {
 		let pipe = [];
 
-		let group =  { $group: {_id: '$attacker_king' , ginyba: {$push :'$defender_king'}} };
-		pipe.push(group);
+
+		let grp1 = { $group: { _id: '$attacker_king', attacker_count: {$sum: 1}, entry: {$push: {defender: '$defender_king'}} } };		
+		pipe.push(grp1);
+
+		let sort1 = { $sort: { attacker_count: -1}};
+		pipe.push(sort1);
+
+		let unw1 = { $unwind : '$entry'};
+		pipe.push(unw1);
+
+		let grp2 = { $project: { '_id':0, 'attacker_1': '$_id', 'entry': 1} };
+		//pipe.push(grp2);		
+
+		/*
+			let grp1 = { $group: { _id: '$attacker_1' } };
+			pipe.push(grp1);
+
+			let grp2 = { $project: { '_id':1, 'attacker': '$_id'} };
+			pipe.push(grp2);
+		*/
+
+		//let grp2 = { $group: { _id: '$defender_1' } };
+		//pipe.push(grp2);
+
+		//let group =  { $group: {_id: '$attacker_king' , ginyba: {$push :'$defender_king'}} };
+		//pipe.push(group);
 		
 		/*
 		let group =  { $group: {_id: '$attacker_king' , besiginantys: {$push :'$defender_king'}, uzpuolimuKiekis : { $sum : 1 }} };
