@@ -47,7 +47,7 @@ app.get('/test', debug.test);
 //app.get('/midware', debug.mid1, debug.mid2, debug.mid3);
 
 // Error mid-ware
-app.use(routes.error);
+app.use(debug.error);
 
 // hook up server on port
 app.listen(app.get('port'));
