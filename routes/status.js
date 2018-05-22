@@ -1,25 +1,23 @@
-// --------------------------------------------------------------------------------------------
-// Description: Routes
-// Author: Robertas Bauras
-// Create date: 2018.05.02
-// Modify date: 2018.05.16
-// --------------------------------------------------------------------------------------------
+/**
+* Description: Task
+* Author: Robertas Bauras
+* Create date: 2018.05.02
+* Modify date: 2018.05.21
+*/
 var express = require('express');
 var mongoose = require('../libs/mongoose');
 var Battles = require('../models/battles').battles;
 var config = require('../config/index.js');
-// --------------------------------------------------------------------------------------------
+
 // request /stats object
-// --------------------------------------------------------------------------------------------
 const statObject = {		
 	most_active: {attacker_king: ``, defender_king: ``, region: ``},
 	attacker_outcome: {win: 0, loss: 0},
 	battle_type: [],
 	defender_size: { average: 0, min: 0, max: 0}
 };
-// --------------------------------------------------------------------------------------------
+
 // Collecting all data needed for statObject
-// --------------------------------------------------------------------------------------------
 function status(inp, out)
 {
 	Promise.all([mostActiveAttacker, mostActiveDefender, mostActiveRegion, attkOutcomWin, attkOutcomLoss, battleTypes, defSizeAvg, defSizeMin, defSizeMax])
@@ -30,9 +28,8 @@ function status(inp, out)
 			out.send(error);
 		});	
 }
-// --------------------------------------------------------------------------------------------
+
 // request for attacker kings number (promise)
-// --------------------------------------------------------------------------------------------
 let mostActiveAttacker = new Promise(function(resolve, reject){
 	let pipe = [];
 	let groupedKings =  { $group: { _id:"$attacker_king", mostActiveKingBattles: {$sum: 1} } };
@@ -48,9 +45,8 @@ let mostActiveAttacker = new Promise(function(resolve, reject){
 		resolve(statObject);
 	});
 });
-// --------------------------------------------------------------------------------------------
+
 // request for most active defender kings number
-// --------------------------------------------------------------------------------------------
 let mostActiveDefender = new Promise(function(resolve, reject){
 	let pipe = [];
 	let groupedKings =  { $group: { _id:"$defender_king", mostDefenderKingBattles: {$sum: 1} } };
@@ -66,9 +62,8 @@ let mostActiveDefender = new Promise(function(resolve, reject){
 		resolve(statObject);
 	});
 });
-// --------------------------------------------------------------------------------------------
+
 // request for most active region number
-// --------------------------------------------------------------------------------------------
 let mostActiveRegion = new Promise(function(resolve, reject){
 	let pipe = [];
 	let mActiveRegio =  { $group: { _id:"$region", mostActiveRegion: {$sum: 1} } };
@@ -84,9 +79,8 @@ let mostActiveRegion = new Promise(function(resolve, reject){
 		resolve(statObject);
 	});
 });
-// --------------------------------------------------------------------------------------------
+
 //
-// --------------------------------------------------------------------------------------------
 let attkOutcomWin = new Promise(function(resolve, reject){
 	let pipe = [];
 	let attackerOutcomeWin =  { $match: { attacker_outcome: "win" } };
@@ -102,9 +96,8 @@ let attkOutcomWin = new Promise(function(resolve, reject){
 		resolve(statObject);
 	});
 });
-// --------------------------------------------------------------------------------------------
+
 //
-// --------------------------------------------------------------------------------------------
 let attkOutcomLoss = new Promise(function(resolve, reject){
 	let pipe = [];
 	let attackerOutcomeLoss =  { $match: { attacker_outcome: "loss" } };
@@ -118,9 +111,8 @@ let attkOutcomLoss = new Promise(function(resolve, reject){
 		resolve(statObject);
 	});
 });
-// --------------------------------------------------------------------------------------------
+
 //
-// --------------------------------------------------------------------------------------------
 let battleTypes = new Promise(function(resolve, reject){
 	let pipe = [];
 	let battleTypes =  { $group: { _id:"$battle_type"}};
@@ -134,9 +126,8 @@ let battleTypes = new Promise(function(resolve, reject){
 		resolve(statObject);
 	});
 });
-// --------------------------------------------------------------------------------------------
+
 //
-// --------------------------------------------------------------------------------------------
 let defSizeAvg = new Promise(function(resolve, reject){
 	let pipe = [];
 	let avgDefenderSize =  { $group: { _id: 0, avg: {$avg: "$defender_size"}}};
@@ -148,9 +139,8 @@ let defSizeAvg = new Promise(function(resolve, reject){
 		resolve(statObject);
 	});
 });
-// --------------------------------------------------------------------------------------------
+
 //
-// --------------------------------------------------------------------------------------------
 let defSizeMin = new Promise(function(resolve, reject){
 	let pipe = [];
 	let minDefenderSize =  { $group: { _id: 0, min: {$min: "$defender_size"}}};
@@ -162,9 +152,8 @@ let defSizeMin = new Promise(function(resolve, reject){
 		resolve(statObject);
 	});
 });
-// --------------------------------------------------------------------------------------------
+
 //
-// --------------------------------------------------------------------------------------------
 let defSizeMax = new Promise(function(resolve, reject){
 	let pipe = [];
 	let maxDefenderSize =  { $group: { _id: 0, max: {$max: "$defender_size"}}};
@@ -176,6 +165,5 @@ let defSizeMax = new Promise(function(resolve, reject){
 		resolve(statObject);
 	});
 });
-// --------------------------------------------------------------------------------------------
+
 module.exports.status = status;
-// --------------------------------------------------------------------------------------------

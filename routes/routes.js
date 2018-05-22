@@ -1,16 +1,15 @@
-// --------------------------------------------------------------------------------------------
-// Description: Routes
-// Author: Robertas Bauras
-// Create date: 2018.05.02
-// Modify date: 2018.05.16
-// --------------------------------------------------------------------------------------------
+/**
+* Description: Task
+* Author: Robertas Bauras
+* Create date: 2018.05.02
+* Modify date: 2018.05.21
+*/
 var express = require('express');
 var mongoose = require('../libs/mongoose');
 var Battles = require('../models/battles').battles;
 var config = require('../config/index.js');
-// --------------------------------------------------------------------------------------------
+
 // Error route
-// --------------------------------------------------------------------------------------------
 function error(inp, out){
 	out.send(`Please use correct API v${config.get('apiVersion')}`);
 }
@@ -61,15 +60,11 @@ function middleware1(i, o, next){ console.log('middleware nr.1'); next(); }
 function middleware2(i, o, next){ console.log('middleware nr.2'); next(); }
 function middleware3(i, o, next){ console.log('middleware nr.3'); o.send('middleware text OK');  }
 
-// --------------------------------------------------------------------------------------------
+
 // export
-// --------------------------------------------------------------------------------------------
 module.exports.test = test;
 module.exports.all = all;
 module.exports.error = error;
 module.exports.mid1 = middleware1;
 module.exports.mid2 = middleware2;
 module.exports.mid3 = middleware3;
-// --------------------------------------------------------------------------------------------
-// end of file
-// --------------------------------------------------------------------------------------------

@@ -1,11 +1,11 @@
-// --------------------------------------------------------------------------------------------
-// Description: Task
-// Author: Robertas Bauras
-// Create date: 2018.05.02
-// Modify date: 2018.05.17
-// --------------------------------------------------------------------------------------------
+/**
+* Description: Task
+* Author: Robertas Bauras
+* Create date: 2018.05.02
+* Modify date: 2018.05.21
+*/
 var mongoose = require('./../libs/mongoose');
-// --------------------------------------------------------------------------------------------
+
 exports.battles = mongoose.Schema({
 	    name: String,
 	    year: Number,
@@ -33,4 +33,3 @@ exports.battles = mongoose.Schema({
 	    region: String,
 	    note: String
 	});
-// --------------------------------------------------------------------------------------------
