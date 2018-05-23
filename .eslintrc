@@ -1,0 +1,44 @@
+{
+  "extends": "airbnb-base",
+  "rules": {
+    "eol-last": "off",
+    "no-underscore-dangle": "off",
+    "func-names": [
+      "error",
+      "never"
+    ],
+    "no-param-reassign": [
+      "error",
+      {
+        "props": false
+      }
+    ],
+    "arrow-body-style": "off",
+    "arrow-parens": "off",
+    "consistent-return": "off",
+    "no-shadow": "off",
+    "dot-notation": "off",
+    "object-shorthand": "off",
+    "indent": [
+      "error",
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "linebreak-style": "off",
+    "prefer-arrow-callback": "off",
+    "no-return-assign": "off"
+  },
+  "env": {
+    "node": true,
+    "mocha": true
+  },
+  "globals": {
+    "logger": true,
+    "isDevelopment": true,
+    "isStaging": true,
+    "isProduction": true,
+    "winston": true
+  }
+}

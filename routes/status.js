@@ -20,7 +20,7 @@ const statObject = {
 // Collecting all data needed for statObject
 function status(inp, out)
 {
-	Promise.all([mostActiveAttacker, mostActiveDefender, mostActiveRegion, attkOutcomWin, attkOutcomLoss, battleTypes, defSizeAvg, defSizeMin, defSizeMax])
+	Promise.all([mostActiveAttacker, mostActiveDefender, mostActiveRegion, attkOutcomWin, attkOutcomLoss, battleTypes, defendSizeAvgMinMax])
 		.then(function(value){
 			out.send(value[0]);
 		})
@@ -127,6 +127,22 @@ let battleTypes = new Promise(function(resolve, reject){
 	});
 });
 
+// Get Average MIn and Max of defender_size
+let defendSizeAvgMinMax = new Promise(function(resolve, reject){
+	let pipe = [];
+	let avgDefenderSize =  { $group: { _id: 0, average: {$avg: "$defender_size"} ,  min: {$min: "$defender_size"} ,  max: {$max: "$defender_size"}}};
+	pipe.push(avgDefenderSize);
+	let query = Battles.aggregate(pipe);
+	query.exec(function(err, ls){ 
+		if (err) reject(err);
+		statObject.defender_size.average = ls[0].average;
+		statObject.defender_size.min = ls[0].min;
+		statObject.defender_size.max = ls[0].max;
+		resolve(statObject);
+	});
+});
+
+/*
 //
 let defSizeAvg = new Promise(function(resolve, reject){
 	let pipe = [];
@@ -165,5 +181,5 @@ let defSizeMax = new Promise(function(resolve, reject){
 		resolve(statObject);
 	});
 });
-
+*/
 module.exports.status = status;

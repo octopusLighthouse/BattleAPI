@@ -33,7 +33,17 @@ function test(i,o)
 {
 		let pipe = [];
 
+		//let attackerOutcomeLoss =  { $match: { attacker_outcome: "loss" } };
+		//pipe.push(attackerOutcomeLoss);
+		let x =  { $group: { _id:"$attacker_outcome", total: {$sum: '$attacker_outcome'} } };
+		pipe.push(x);
 
+
+
+		//let groupAvgMinMax =  { $group: { _id: 0, average: {$avg: "$defender_size"} ,  min: {$min: "$defender_size"} ,  max: {$max: "$defender_size"}}};
+		//pipe.push(groupAvgMinMax);
+
+		/*
 		let grp1 = { $group: { _id: '$attacker_king', attacker_count: {$sum: 1}, entry: {$push: {defender: '$defender_king'}} } };		
 		pipe.push(grp1);
 
@@ -43,9 +53,9 @@ function test(i,o)
 		let unw1 = { $unwind : '$entry'};
 		pipe.push(unw1);
 
-		let grp2 = { $project: { '_id':0, 'attacker_1': '$_id', 'entry': 1} };
-		//pipe.push(grp2);		
-
+		let grp2 = { $group: { _id: '$entry' , defender_count: {$sum: 1}, entry: {$push: {attacker_count: '$attacker_count', king: '$attacker_king'}}} };
+		pipe.push(grp2);		
+		*/
 		/*
 			let grp1 = { $group: { _id: '$attacker_1' } };
 			pipe.push(grp1);
