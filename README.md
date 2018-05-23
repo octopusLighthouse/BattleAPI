@@ -14,6 +14,10 @@ Example endpoints:
 - localhost:5000/search
 
      search arguments:
-     * <b>king</b> - name of attacker or defender king (example: localhost:5000/search?king=Joffrey/Tommen Baratheon )
-     * <b>location</b> - battle location (example: localhost:5000/search?location=Riverrun )
-     * <b>type</b> - battle type  (example: localhost:5000/search?type=ambush )
+     * <b>king</b> - name of attacker or defender king (example: <b>localhost:5000/search?king=Joffrey/Tommen Baratheon</b> )
+     * <b>location</b> - battle location (example: <b>localhost:5000/search?location=Riverrun</b> )
+     * <b>type</b> - battle type  (example: <b>localhost:5000/search?type=ambush</b> )
+     
+     search route support combination of arguments:
+     example: <b>localhost:5000/search?type=ambush&king=Joffrey/Tommen Baratheon</b>
+     
