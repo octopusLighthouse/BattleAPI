@@ -15,7 +15,6 @@
 
 // includes
 let express = require('express');
-let debug = require('./routes/debug');
 let List = require('./routes/list');
 let Count = require('./routes/count');
 let Status = require('./routes/status');
@@ -23,6 +22,7 @@ let Search = require('./routes/search');
 let config = require('./config/index.js');
 let battleServerHttp = require('./middleware/log');
 let Login = require('./middleware/login');
+let debug = require('./middleware/error');
 let favicon = require('serve-favicon');
 let path = require('path');
 let app = express();
