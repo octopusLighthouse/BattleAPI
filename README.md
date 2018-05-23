@@ -18,7 +18,7 @@ Example endpoints:
      * <b>location</b> - battle location (example: <b>localhost:5000/search?location=Riverrun</b> )
      * <b>type</b> - battle type  (example: <b>localhost:5000/search?type=ambush</b> )
      
-     search route support combination of arguments:
+     search route supports combination of arguments:
      
      <b>localhost:5000/search?type=ambush&king=Joffrey/Tommen Baratheon</b>
      
