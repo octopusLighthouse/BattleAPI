@@ -19,4 +19,6 @@ function countBattles(inp, out){
 			out.send({battles_occurred: le});
 		}).select('location');
 }
+
+// export
 module.exports.count = countBattles;

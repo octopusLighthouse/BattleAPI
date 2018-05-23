@@ -42,5 +42,5 @@ function search(inp, out){
 		out.send(ls); });
 }
 
-//
+// export
 module.exports.search = search;

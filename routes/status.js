@@ -80,8 +80,7 @@ let mostActiveRegion = new Promise(function(resolve, reject){
 	});
 });
 
-
-
+// Get outcome win loss
 let attkOutcomWinLoss = new Promise(function(resolve, reject){
 	let pipe = [];
 	let grp = { $group: { _id: '$attacker_outcome', total: {$sum: 1} }};
@@ -97,7 +96,7 @@ let attkOutcomWinLoss = new Promise(function(resolve, reject){
 	});
 });
 
-//
+// Get battle types
 let battleTypes = new Promise(function(resolve, reject){
 	let pipe = [];
 	let battleTypes =  { $group: { _id:"$battle_type"}};
@@ -127,4 +126,5 @@ let defendSizeAvgMinMax = new Promise(function(resolve, reject){
 	});
 });
 
+// export
 module.exports.status = status;

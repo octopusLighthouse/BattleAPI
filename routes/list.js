@@ -21,5 +21,5 @@ function list(inp, out){
 	});
 }
 
-//
+// export
 module.exports.list = list;

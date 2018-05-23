@@ -7,4 +7,5 @@
 let mongoose = require('./../libs/mongoose');
 let schema = require('./../schemas/battles');
 
+// export battles schema
 exports.battles = mongoose.model('battles', schema.battles, 'battles');

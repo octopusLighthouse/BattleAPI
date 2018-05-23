@@ -7,6 +7,7 @@
 // In future releases will done :)
 let status = { userLoggedIn: true };
 
+// login middleware
 function login(input, output, next){
 	if (status.userLoggedIn == true){
 		next();
@@ -20,4 +21,5 @@ function login(input, output, next){
 	}
 }
 
+// export
 module.exports.userAuthentification = login;
