@@ -22,3 +22,9 @@ Example endpoints:
      
      <b>localhost:5000/search?type=ambush&king=Joffrey/Tommen Baratheon</b>
      
+ This application also is on Heroku platform:
+ 
+ https://enigmatic-chamber-75142.herokuapp.com/
+ 
+ All data about battles placed to https://mlab.com/
+     
