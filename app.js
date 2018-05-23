@@ -41,11 +41,6 @@ app.get('/count', Login.userAuthentification, Count.count);
 app.get('/stats', Login.userAuthentification, Status.status);
 app.get('/search', Login.userAuthentification, Search.search);
 
-// debug routes
-app.get('/all', debug.all);
-app.get('/test', debug.test);
-//app.get('/midware', debug.mid1, debug.mid2, debug.mid3);
-
 // Error mid-ware
 app.use(debug.error);
 

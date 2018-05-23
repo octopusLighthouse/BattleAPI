@@ -20,7 +20,7 @@ const statObject = {
 // Collecting all data needed for statObject
 function status(inp, out)
 {
-	Promise.all([mostActiveAttacker, mostActiveDefender, mostActiveRegion, attkOutcomWin, attkOutcomLoss, battleTypes, defendSizeAvgMinMax])
+	Promise.all([mostActiveAttacker, mostActiveDefender, mostActiveRegion, attkOutcomWinLoss, battleTypes, defendSizeAvgMinMax])
 		.then(function(value){
 			out.send(value[0]);
 		})
@@ -80,34 +80,19 @@ let mostActiveRegion = new Promise(function(resolve, reject){
 	});
 });
 
-//
-let attkOutcomWin = new Promise(function(resolve, reject){
+
+
+let attkOutcomWinLoss = new Promise(function(resolve, reject){
 	let pipe = [];
-	let attackerOutcomeWin =  { $match: { attacker_outcome: "win" } };
-	pipe.push(attackerOutcomeWin);
-	let x =  { $group: { _id:"$attacker_outcome", total: {$sum: 1} } };
-	pipe.push(x);
-
-
+	let grp = { $group: { _id: '$attacker_outcome', total: {$sum: 1} }};
+	pipe.push(grp);
 	let query = Battles.aggregate(pipe);
 	query.exec(function(err, ls){ 
 		if (err) reject(err);
-		statObject.attacker_outcome.win = ls[0].total;
-		resolve(statObject);
-	});
-});
-
-//
-let attkOutcomLoss = new Promise(function(resolve, reject){
-	let pipe = [];
-	let attackerOutcomeLoss =  { $match: { attacker_outcome: "loss" } };
-	pipe.push(attackerOutcomeLoss);
-	let x =  { $group: { _id:"$attacker_outcome", total: {$sum: 1} } };
-	pipe.push(x);
-	let query = Battles.aggregate(pipe);
-	query.exec(function(err, ls){ 
-		if (err) reject(err);
-		statObject.attacker_outcome.loss = ls[0].total;
+		for (let i = 0; i < ls.length; i++){
+			if (ls[i]._id === 'win'){ statObject.attacker_outcome.win = ls[i].total; } else
+			if (ls[i]._id === 'loss'){ statObject.attacker_outcome.loss = ls[i].total; }
+		}
 		resolve(statObject);
 	});
 });
@@ -142,44 +127,4 @@ let defendSizeAvgMinMax = new Promise(function(resolve, reject){
 	});
 });
 
-/*
-//
-let defSizeAvg = new Promise(function(resolve, reject){
-	let pipe = [];
-	let avgDefenderSize =  { $group: { _id: 0, avg: {$avg: "$defender_size"}}};
-	pipe.push(avgDefenderSize);
-	let query = Battles.aggregate(pipe);
-	query.exec(function(err, ls){ 
-		if (err) reject(err);
-		statObject.defender_size.average = ls[0].avg;
-		resolve(statObject);
-	});
-});
-
-//
-let defSizeMin = new Promise(function(resolve, reject){
-	let pipe = [];
-	let minDefenderSize =  { $group: { _id: 0, min: {$min: "$defender_size"}}};
-	pipe.push(minDefenderSize);
-	let query = Battles.aggregate(pipe);
-	query.exec(function(err, ls){ 
-		if (err) reject(err);
-		statObject.defender_size.min = ls[0].min;
-		resolve(statObject);
-	});
-});
-
-//
-let defSizeMax = new Promise(function(resolve, reject){
-	let pipe = [];
-	let maxDefenderSize =  { $group: { _id: 0, max: {$max: "$defender_size"}}};
-	pipe.push(maxDefenderSize);
-	let query = Battles.aggregate(pipe);
-	query.exec(function(err, ls){ 
-		if (err) reject(err);
-		statObject.defender_size.max = ls[0].max;
-		resolve(statObject);
-	});
-});
-*/
 module.exports.status = status;
