@@ -14,6 +14,6 @@ Example endpoints:
 - localhost:5000/search
 
      search arguments:
-     * king - returns attacker_king or defender_king
+     * king - name of attacker or defender king
      * location - battle location
      * type - battle type
