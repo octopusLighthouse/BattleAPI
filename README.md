@@ -1,9 +1,11 @@
 # Game of Thrones Battle API
 
 Install modules:
-> npm install < 
+> npm install 
+
 Run application:
-> npm start <    
+> npm start 
+
 
 Example endpoints:
 - localhost:5000/list
